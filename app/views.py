@@ -36,18 +36,17 @@ def upload():
     # Validate file upload on submit
     if request.method == 'POST':
         if pform.validate_on_submit():
-
             photo = pform.photo.data
         # Get file data and save to your uploads folder
             filename = secure_filename(photo.filename)
             photo.save(os.path.join(
                 app.config[UPLOAD_FOLDER], filename
             ))
-            
+
         flash('File Saved', 'success')
         return redirect(url_for('home'))
 
-    return render_template('upload.html')
+    return render_template('upload.html', form=pform)
 
 
 @app.route('/login', methods=['POST', 'GET'])
