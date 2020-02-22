@@ -36,14 +36,15 @@ def upload():
     # Validate file upload on submit
     if request.method == 'POST':
         if pform.validate_on_submit():
-            photo = pform.photo.data
+            photo = pform.photofile.data
         # Get file data and save to your uploads folder
             filename = secure_filename(photo.filename)
             photo.save(os.path.join(
-                app.config[UPLOAD_FOLDER], filename
+                app.config['UPLOAD_FOLDER'], filename
             ))
 
         flash('File Saved', 'success')
+        flash_errors(pform)
         return redirect(url_for('home'))
 
     return render_template('upload.html', form=pform)
@@ -59,6 +60,7 @@ def login():
             session['logged_in'] = True
 
             flash('You were logged in', 'success')
+
             return redirect(url_for('upload'))
     return render_template('login.html', error=error)
 
