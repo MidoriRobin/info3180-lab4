@@ -1,3 +1,21 @@
 body {
     padding-top: 5rem;
 }
+
+ul.album{
+  padding: 30px;
+  display: grid;
+  list-style: none;
+  grid-template-columns: auto auto auto;
+  grid-gap: 40px;
+  justify-content: center;
+}
+
+ul img{
+  width: 200px;
+
+}
+
+li{
+
+}

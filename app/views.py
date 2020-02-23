@@ -10,6 +10,9 @@ from flask import render_template, request, redirect, url_for, flash, session, a
 from werkzeug.utils import secure_filename
 from .forms import *
 
+
+
+
 ###
 # Routing for your application.
 ###
@@ -23,6 +26,11 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
+
+    #imglst = get_uploaded_images()
+    #print (imglst)
+    img = "/1519332579587.png"
+    #print("Test")
     return render_template('about.html', name="Mary Jane")
 
 
@@ -70,6 +78,29 @@ def logout():
     session.pop('logged_in', None)
     flash('You were logged out', 'success')
     return redirect(url_for('home'))
+
+
+@app.route('/files', methods=['GET'])
+def files():
+    #path = None
+    #if path == None:
+
+    nullst = ['None available']
+    imglst = get_uploaded_images()
+    return render_template('files.html', album=imglst)
+
+def get_uploaded_images():
+    rootdir = os.getcwd()
+    print (rootdir)
+    imglst = []
+    for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
+        for file in files:
+            print (os.path.join(subdir, file))
+            if file[0] == '.':
+                pass
+            else:
+                imglst.append('/uploads/' + file)
+    return imglst
 
 
 ###

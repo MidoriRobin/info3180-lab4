@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1 class="page-header"> Files Uploaded </h1>
+
+    <ul class="album">
+      {% for pic in album %}
+        <li><img src="{{ url_for('static',filename=pic) }}" alt=""></li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}
